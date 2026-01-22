@@ -144,7 +144,8 @@ This will start the server, and the application will be available on `http://loc
 | GET    | `/api/v1/videos/`           | Get videos by search              | Yes       |
 | GET    | `/api/v1/videos/:videoId`   | Get a specific video by its ID    | Yes       |
 | DELETE | `/api/v1/videos/:videoId`   | Delete a video by its ID          | Yes       |
-| PUT    | `/api/v1/videos/:videoId`   | Update video details              | Yes       |
+| PATCH  | `/api/v1/videos/:videoId`   | Update video details              | Yes       |
+| PATCH  | `/api/v1/videos/toggle/publish:videoId`   | Toggle publish status              | Yes       |
 
 ### Comments
 | Method | Endpoint                       | Description                       | Protected |
