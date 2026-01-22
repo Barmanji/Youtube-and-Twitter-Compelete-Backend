@@ -36,7 +36,7 @@ const limiter = rateLimit({
   },
 });
 
-app.use(rateLimit)
+app.use(limiter)
 
 //routes
 import userRouter from './routes/user.routes.js'
