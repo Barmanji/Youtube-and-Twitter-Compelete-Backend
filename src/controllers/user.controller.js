@@ -60,6 +60,7 @@ const registerUser = asyncHandler(async(req, res) => {
     };
 
     const avatarLocalPath = req.files?.avatar[0]?.path;
+
     //const coverImageLocalPath = req.files?.coverImage[0]?.path; //[0] is for first property
        let coverImageLocalPath;
     if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
@@ -387,7 +388,6 @@ const getUserChannelProfile = asyncHandler(async(req, res)=>{
 
 })
 
-//TODO: Change the posi of pipelines make it outside or nest it more then console it out.
 const getWatchHistory = asyncHandler(async(req, res)=>{
 //req.user._id returns a string not actuall ID
     const user = await User.aggregate([
