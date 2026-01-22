@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile  from "../swagger-output.json" with { type: 'json' };
+import { rateLimit } from "express-rate-limit";
+import requestIp from "request-ip";
 
 const app = express()
 app.use(cors({
@@ -14,6 +16,27 @@ app.use(express.json({limit: '16kb'}))
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
+app.use(requestIp.mw()); // for knowing client's IP
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5000, // Limit each IP to 500 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  keyGenerator: (req, res) => {
+    return req.clientIp; // IP address from requestIp.mw(), as opposed to req.ip
+  },
+  handler: (_, __, ___, options) => {
+    throw new ApiError(
+      options.statusCode || 500,
+      `There are too many requests. You are only allowed ${
+        options.max
+      } requests per ${options.windowMs / 60000} minutes`
+    );
+  },
+});
+
+app.use(rateLimit)
 
 //routes
 import userRouter from './routes/user.routes.js'
