@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
+    "version": "1.2.0",
     "title": "Youtube_Twitter_Backend",
     "description": "API For Backend of Youtube and Twitter."
   },
@@ -13,27 +13,259 @@
   "paths": {
     "/api/v1/user/register": {
       "post": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Register a new user",
+        "description": "Register a user with multiple file uploads (avatar and cover image).",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "fullname",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "John Doe"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "john@example.com"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "password123"
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "johndoe"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Profile picture"
+          },
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "type": "file",
+            "required": false,
+            "description": "Cover photo"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "User registered successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 201
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "69727d547c86ed0f1e5c8ecd"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "three"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "three@three.com"
+                    },
+                    "fullname": {
+                      "type": "string",
+                      "example": "three"
+                    },
+                    "avatar": {
+                      "type": "string",
+                      "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110865/gjqwwa8ls4onv39xqk4n.png"
+                    },
+                    "coverImage": {
+                      "type": "string",
+                      "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110867/ik2k4whlkdjiy0fbtdz1.png"
+                    },
+                    "watchHistory": {
+                      "type": "array",
+                      "example": [],
+                      "items": {}
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2026-01-22T19:41:08.298Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2026-01-22T19:41:08.298Z"
+                    },
+                    "__v": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User Registered succesfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/login": {
       "post": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "User Login",
+        "description": "Authenticate user and return access/refresh tokens.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "doejohn"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "test@123"
+                }
+              },
+              "required": [
+                "username",
+                "password"
+              ]
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "User logged in successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "XYZ123"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "one"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "one@gmail.com"
+                        },
+                        "fullname": {
+                          "type": "string",
+                          "example": "one"
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/one.png"
+                        },
+                        "coverImage": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/one1.png"
+                        },
+                        "watchHistory": {
+                          "type": "array",
+                          "example": [],
+                          "items": {}
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2026-01-22T16:42:24.426Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2026-01-22T19:37:43.177Z"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    },
+                    "accessToken": {
+                      "type": "string",
+                      "example": "one123"
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "example": "one2345"
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User logged in succesfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid user credentials"
           }
         }
       }
     },
     "/api/v1/user/logout": {
       "post": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "User Logout",
+        "description": "Logout user and invalidate refresh token.",
         "parameters": [
           {
             "name": "Authorization",
@@ -43,24 +275,76 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User logged out successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/refreshToken": {
       "post": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Refresh Access Token",
+        "description": "Refresh access token using refresh token.",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Access token refreshed successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "example": "new-access-token"
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "example": "new-refresh-token"
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Access token refreshed successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
     },
     "/api/v1/user/current-user": {
       "get": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Get Current User",
+        "description": "Get the currently logged in user.",
         "parameters": [
           {
             "name": "Authorization",
@@ -69,50 +353,447 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Current user fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "69727d547c86ed0f1e5c8ecd"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "three"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "three@three.com"
+                        },
+                        "fullname": {
+                          "type": "string",
+                          "example": "three"
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110865/gjqwwa8ls4onv39xqk4n.png"
+                        },
+                        "coverImage": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110867/ik2k4whlkdjiy0fbtdz1.png"
+                        },
+                        "watchHistory": {
+                          "type": "array",
+                          "example": [],
+                          "items": {}
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2026-01-22T19:41:08.298Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2026-01-22T19:41:08.298Z"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Current user fetched successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/change-password": {
       "post": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Change Password",
+        "description": "Change the current password of the logged in user.",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Old and new passwords",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "oldPassword": {
+                  "type": "string",
+                  "example": "old-password"
+                },
+                "newPassword": {
+                  "type": "string",
+                  "example": "new-password"
+                }
+              },
+              "required": [
+                "oldPassword",
+                "newPassword"
+              ]
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Password changed successfully"
+          },
+          "400": {
+            "description": "Invalid old password"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user/update-account": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update account details",
+        "description": "Update fullname and email of the logged in user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User details to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullname": {
+                  "type": "string",
+                  "example": "John Doe Updated"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john.doe.updated@example.com"
+                }
+              },
+              "required": [
+                "fullname",
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details updated successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "69727d547c86ed0f1e5c8ecd"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "three"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "three@three.com"
+                        },
+                        "fullname": {
+                          "type": "string",
+                          "example": "three"
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110865/gjqwwa8ls4onv39xqk4n.png"
+                        },
+                        "coverImage": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110867/ik2k4whlkdjiy0fbtdz1.png"
+                        },
+                        "watchHistory": {
+                          "type": "array",
+                          "example": [],
+                          "items": {}
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2026-01-22T19:41:08.298Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2026-01-22T19:41:08.298Z"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Account details updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data provided."
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/avatar": {
       "patch": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user avatar",
+        "description": "Update avatar of the logged in user",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "New avatar image"
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Avatar updated successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "69727d547c86ed0f1e5c8ecd"
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110865/gjqwwa8ls4onv39xqk4n.png"
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Avatar image updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data provided."
+          },
+          "401": {
+            "description": "Unauthorized."
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/cover-image": {
       "patch": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user cover image",
+        "description": "Update cover image of the logged in user",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "New cover image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cover image updated successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "69727d547c86ed0f1e5c8ecd"
+                        },
+                        "coverImage": {
+                          "type": "string",
+                          "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110867/ik2k4whlkdjiy0fbtdz1.png"
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Cover image updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data provided."
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user/c/{username}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user channel profile",
+        "description": "Get channel profile of a user by username",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Username of the user"
+          },
           {
             "name": "Authorization",
             "in": "header",
@@ -120,15 +801,87 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "User channel profile fetched successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "69727d547c86ed0f1e5c8ecd"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "three"
+                    },
+                    "fullname": {
+                      "type": "string",
+                      "example": "three"
+                    },
+                    "avatar": {
+                      "type": "string",
+                      "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110865/gjqwwa8ls4onv39xqk4n.png"
+                    },
+                    "coverImage": {
+                      "type": "string",
+                      "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110867/ik2k4whlkdjiy0fbtdz1.png"
+                    },
+                    "subscribersCount": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "channelsSubscribedToCount": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "isSubscribed": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User channel profile fetched successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "User not found."
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/watch-history": {
       "get": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user's watch history",
+        "description": "Get the watch history of the logged in user",
         "parameters": [
           {
             "name": "Authorization",
@@ -137,206 +890,753 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Watch history fetched successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "video_id_1"
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110865/video_thumbnail.png"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Video Title"
+                      },
+                      "duration": {
+                        "type": "number",
+                        "example": 120
+                      },
+                      "views": {
+                        "type": "number",
+                        "example": 1000
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string",
+                            "example": "video_owner"
+                          },
+                          "avatar": {
+                            "type": "string",
+                            "example": "http://res.cloudinary.com/barmanji/image/upload/v1769110865/owner_avatar.png"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Watch history fetched successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user/seed": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Seed",
+        "description": "Seed the database with dummy users.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/user/seed-credentials": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get generated credentials",
+        "description": "Get the credentials of the seeded users.",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
     "/api/v1/healthcheck/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Healthcheck"
+        ],
+        "summary": "Healthcheck",
+        "description": "Check if the server is up and running",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Server is up and running",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Server is up and running"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/tweets/": {
       "post": {
-        "description": "",
+        "tags": [
+          "Tweet"
+        ],
+        "summary": "Create a tweet",
+        "description": "Create a new tweet",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Tweet content",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "content": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "This is a tweet"
                 }
-              }
+              },
+              "required": [
+                "content"
+              ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Tweet created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Tweet created successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Tweet Content is missing!"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/tweets/user/{userId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Tweet"
+        ],
+        "summary": "Get user's tweets",
+        "description": "Get all tweets of a user",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Tweets fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Tweets fetched successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid user id"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "No tweets found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/tweets/{tweetId}": {
       "delete": {
-        "description": "",
+        "tags": [
+          "Tweet"
+        ],
+        "summary": "Delete a tweet",
+        "description": "Delete a tweet by its ID",
         "parameters": [
           {
             "name": "tweetId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Tweet ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Tweet deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Tweet deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Tweet ID"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You are not allowed to delete this tweet"
+          },
+          "404": {
+            "description": "Tweet not found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "patch": {
-        "description": "",
+        "tags": [
+          "Tweet"
+        ],
+        "summary": "Update a tweet",
+        "description": "Update a tweet by its ID",
         "parameters": [
           {
             "name": "tweetId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Tweet ID"
           },
           {
             "name": "body",
             "in": "body",
+            "description": "Tweet content",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "content": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "This is an updated tweet"
                 }
-              }
+              },
+              "required": [
+                "content"
+              ]
             }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "201": {
+            "description": "Tweet updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 201
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Tweet updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Content field is missing or Tweet ID is invalid"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/subscriptions/c/{channelId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "Get subscribed channels",
+        "description": "Get all channels a user is subscribed to",
         "parameters": [
           {
             "name": "channelId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Subscribed channels fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Subscribed Channels Fetched"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Channel ID"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "Toggle subscription",
+        "description": "Toggle subscription to a channel",
         "parameters": [
           {
             "name": "channelId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Channel ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Subscription toggled successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Channel Subscribed"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid channel ID"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Error while Subscribing or Unsubscribing"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/subscriptions/u/{subscriberId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "Get user's channel subscribers",
+        "description": "Get all subscribers of a channel",
         "parameters": [
           {
             "name": "subscriberId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Channel ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Subscribers fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Subscribers Fetched Successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Subscriber ID"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/videos/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Video"
+        ],
+        "summary": "Get all videos",
+        "description": "Get all videos with pagination",
         "parameters": [
           {
             "name": "page",
             "in": "query",
-            "type": "string"
+            "type": "integer",
+            "description": "Page number"
           },
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "type": "integer",
+            "description": "Number of videos per page"
           },
           {
             "name": "query",
             "in": "query",
-            "type": "string"
+            "type": "string",
+            "description": "Search query"
           },
           {
             "name": "sortBy",
             "in": "query",
-            "type": "string"
+            "type": "string",
+            "description": "Sort by field"
           },
           {
             "name": "sortType",
             "in": "query",
-            "type": "string"
+            "type": "string",
+            "description": "Sort type (asc/desc)"
           },
           {
             "name": "userId",
             "in": "query",
-            "type": "string"
+            "type": "string",
+            "description": "User ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Videos fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "docs": {
+                      "type": "array",
+                      "example": [],
+                      "items": {}
+                    },
+                    "totalDocs": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "limit": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "pagingCounter": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "hasPrevPage": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "hasNextPage": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "prevPage": {},
+                    "nextPage": {}
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Videos fetched successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Video"
+        ],
+        "summary": "Publish a video",
+        "description": "Publish a video with a title, description, video file and thumbnail.",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
+          {
+            "name": "title",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "description": "Video title"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "description": "Video description"
+          },
+          {
+            "name": "videoFile",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Video file"
+          },
+          {
+            "name": "thumbnail",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Video thumbnail"
+          },
           {
             "name": "body",
             "in": "body",
@@ -355,52 +1655,189 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Video published successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 201
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Video published successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/videos/{videoId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Video"
+        ],
+        "summary": "Get a video by ID",
+        "description": "Get a single video by its ID.",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Video fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Video fetched successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Video not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Video"
+        ],
+        "summary": "Delete a video",
+        "description": "Delete a video by its ID.",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Video deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Video deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Video not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "patch": {
-        "description": "",
+        "tags": [
+          "Video"
+        ],
+        "summary": "Update a video",
+        "description": "Update a video's title, description and thumbnail by its ID.",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "type": "string",
+            "description": "Video title"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string",
+            "description": "Video description"
+          },
+          {
+            "name": "thumbnail",
+            "in": "formData",
+            "type": "file",
+            "description": "Video thumbnail"
           },
           {
             "name": "body",
@@ -420,356 +1857,1254 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Video updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Video updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "404": {
+            "description": "Video not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/videos/toggle/publish/{videoId}": {
       "patch": {
-        "description": "",
+        "tags": [
+          "Video"
+        ],
+        "summary": "Toggle publish status",
+        "description": "Toggle the publish status of a video by its ID.",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Publish status toggled successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Publish status toggled successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Video not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/comments/{videoId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Comment"
+        ],
+        "summary": "Get video comments",
+        "description": "Get all comments for a video",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           },
           {
             "name": "page",
             "in": "query",
-            "type": "string"
+            "type": "integer",
+            "description": "Page number"
           },
           {
             "name": "limit",
             "in": "query",
-            "type": "string"
+            "type": "integer",
+            "description": "Number of comments per page"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Comments fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Comments Fetched"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Video not found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Comment"
+        ],
+        "summary": "Add a comment",
+        "description": "Add a comment to a video",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           },
           {
             "name": "body",
             "in": "body",
+            "description": "Comment content",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "content": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "This is a comment"
                 }
-              }
+              },
+              "required": [
+                "content"
+              ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Comment added successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "comment": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Comment added succesfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid video ID or content"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/comments/c/{commentId}": {
       "delete": {
-        "description": "",
+        "tags": [
+          "Comment"
+        ],
+        "summary": "Delete a comment",
+        "description": "Delete a comment by its ID",
         "parameters": [
           {
             "name": "commentId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Comment ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Comment deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "comment has updated succesfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid comment ID"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "patch": {
-        "description": "",
+        "tags": [
+          "Comment"
+        ],
+        "summary": "Update a comment",
+        "description": "Update a comment by its ID",
         "parameters": [
           {
             "name": "commentId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Comment ID"
           },
           {
             "name": "body",
             "in": "body",
+            "description": "Comment content",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "content": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "This is an updated comment"
                 }
-              }
+              },
+              "required": [
+                "content"
+              ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Comment updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "comment": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "updateComment": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "comment has updated succesfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid comment ID or content"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/likes/toggle/v/{videoId}": {
       "post": {
-        "description": "",
+        "tags": [
+          "Like"
+        ],
+        "summary": "Toggle video like",
+        "description": "Toggle like for a video",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Video like toggled successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User Liked the video"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Video ID"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Error while liking/unliking the video"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/likes/toggle/c/{commentId}": {
       "post": {
-        "description": "",
+        "tags": [
+          "Like"
+        ],
+        "summary": "Toggle comment like",
+        "description": "Toggle like for a comment",
         "parameters": [
           {
             "name": "commentId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Comment ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Comment like toggled successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Comment Liked"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Comment ID"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Error while liking/unliking comment"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/likes/toggle/t/{tweetId}": {
       "post": {
-        "description": "",
+        "tags": [
+          "Like"
+        ],
+        "summary": "Toggle tweet like",
+        "description": "Toggle like for a tweet",
         "parameters": [
           {
             "name": "tweetId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Tweet ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Tweet like toggled successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Tweet Liked"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Tweet ID"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Error while Liking/unliking the Tweet"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/likes/videos": {
       "get": {
-        "description": "",
+        "tags": [
+          "Like"
+        ],
+        "summary": "Get liked videos",
+        "description": "Get all videos liked by the user",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Liked videos fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "liked videos"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/playlist/": {
       "post": {
-        "description": "",
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Create a playlist",
+        "description": "Create a new playlist",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Playlist name and description",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "My Playlist"
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "This is a playlist"
                 }
-              }
+              },
+              "required": [
+                "name",
+                "description"
+              ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Playlist created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Playlist created successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Name and description are required"
+          },
+          "401": {
+            "description": "Unauthorized or Same named playlist are now allowed"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/playlist/{playlistId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Get playlist by ID",
+        "description": "Get a playlist by its ID",
         "parameters": [
           {
             "name": "playlistId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Playlist ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Playlist fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Playlist Fetched"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid playlist ID"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Error fetching playlist"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Delete a playlist",
+        "description": "Delete a playlist by its ID",
         "parameters": [
           {
             "name": "playlistId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Playlist ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Playlist deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {},
+                "message": {
+                  "type": "string",
+                  "example": "playlist is successfully deleted"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You are not allowed to modify this playlist"
+          },
+          "404": {
+            "description": "plalist is invalid"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "patch": {
-        "description": "",
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Update a playlist",
+        "description": "Update a playlist by its ID",
         "parameters": [
           {
             "name": "playlistId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Playlist ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Playlist name and description",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "My Updated Playlist"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "This is an updated playlist"
+                }
+              },
+              "required": [
+                "name",
+                "description"
+              ]
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Playlist updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Playlist is updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "playlist is invalid"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You are not allowed to modify this playlist"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/playlist/add/{videoId}/{playlistId}": {
       "patch": {
-        "description": "",
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Add video to playlist",
+        "description": "Add a video to a playlist",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           },
           {
             "name": "playlistId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Playlist ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Video added to playlist successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Video is successfully added"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Playlist or Video ID or Video already in the Playlist"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You are not allowed to modify this playlist"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/playlist/remove/{videoId}/{playlistId}": {
       "patch": {
-        "description": "",
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Remove video from playlist",
+        "description": "Remove a video from a playlist",
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Video ID"
           },
           {
             "name": "playlistId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Playlist ID"
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Video removed from playlist successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "video has been deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Playlist or Video ID or Video doesn't exist in playlist"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You are not allowed to modify this playlist"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/playlist/user/{userId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Get user's playlists",
+        "description": "Get all playlists of a user",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Playlists fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Playlists Fetched"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid User ID"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "504": {
+            "description": "No Playlists found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/dashboard/stats": {
       "get": {
-        "description": "",
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Get channel stats",
+        "description": "Get statistics for the logged in channel",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Channel stats fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "totalViews": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "totalVideos": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "totalSubscribers": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "totalLikes": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Channel Stats Fetched"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/dashboard/videos": {
       "get": {
-        "description": "",
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Get channel videos",
+        "description": "Get all videos for the logged in channel",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Channel videos fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Channel Videos Fetched"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/reset-db/": {
+      "delete": {
+        "tags": [
+          "DANGER ZONE"
+        ],
+        "summary": "Reset Database",
+        "description": "This action is NOT UNDOABLE. It will drop all collections and delete the credentials file.",
+        "responses": {
+          "200": {
+            "description": "Database dropped successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "data": {},
+                "message": {
+                  "type": "string",
+                  "example": "Database dropped successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token"
+          },
+          "500": {
+            "description": "Internal Server Error - Database drop failed"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   }
