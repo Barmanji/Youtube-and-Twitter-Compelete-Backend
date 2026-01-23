@@ -21,8 +21,8 @@ RUN pnpm install --frozen-lockfile
 COPY --chown=node:node . .
 
 # 6. Switch to the non-root user for security
-USER node rest of the files
+USER node
 
 EXPOSE 8000
 
-CMD [ "node", "index.js" ]
+CMD [ "node", "src/index.js" ]
