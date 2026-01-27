@@ -1,26 +1,8 @@
-version: '3.8'
-
 services:
   api:
     image: barmanjii/youtubetwitterbe-api:v1
     container_name: yt-tw-api
     ports:
       - "8000:8000"
-    environment:
-      - MONGODB_URI=mongodb://mongodb:27017/videotube
-      - ACCESS_TOKEN_SECRET=your_secret_here
-      - REFRESH_TOKEN_SECRET=your_refresh_secret
-      # Add other necessary env variables here
-    depends_on:
-      - mongodb
-
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-
-volumes:
-  mongo-data:
+    env_file:
+      - .env

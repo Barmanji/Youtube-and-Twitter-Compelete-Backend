@@ -7,6 +7,7 @@ import { rateLimit, ipKeyGenerator } from "express-rate-limit";
 import requestIp from "request-ip";
 
 const app = express();
+app.set('trust proxy', 1)
 app.use(
   cors({
     origin: process.env.ORIGIN_KEY_CORS,
@@ -26,13 +27,13 @@ const limiter = rateLimit({
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   keyGenerator: (req, res) => {
-    return req.ipKeyGenerator(req,res)
+    return req.clientIp || req.ipKeyGenerator(req,res); // IP address from requestIp.mw(), as opposed to req.ip
   },
   handler: (_, __, ___, options) => {
     throw new ApiError(
       options.statusCode || 500,
       `There are too many requests. You are only allowed ${
-        options.max
+        options.limit
       } requests per ${options.windowMs / 60000} minutes`
     );
   },

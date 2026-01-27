@@ -380,8 +380,8 @@ router.route("/watch-history").get(
 );
 
 router.route("/seed").post(
-    /*  #swagger.tags = ['User']
-    #swagger.summary = "Seed"
+    /*  #swagger.tags = ['Seed']
+    #swagger.summary = "Seed Users"
     #swagger.description = 'Seed the database with dummy users.'
   */
     seedUsers,
@@ -394,7 +394,7 @@ router.route("/seed").post(
 );
 
 router.route("/seed-credentials").get(
-    /*  #swagger.tags = ['User']
+    /*  #swagger.tags = ['Seed']
       #swagger.summary = 'Get generated credentials'
       #swagger.description = 'Get the credentials of the seeded users.'
     */

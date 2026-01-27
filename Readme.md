@@ -23,6 +23,12 @@ This project is a backend system for a YouTube-like application that supports us
 - Watch history tracking and Clearing Watch History
 - Liked videos tracking
 
+### Seeding:
+
+- Seed Random Users with Dummy information
+- Get Seeded Informaiton of the Pre-seeded users.
+- Seed user with @faker-js.
+
 ### Video Management:
 
 - Video upload
@@ -80,10 +86,19 @@ This project is a backend system for a YouTube-like application that supports us
 
 ## Installation
 
+### Method 1: Docker-compose.yml
+
+1. **Clone the repository** then do:
+    ```bash
+    docker compose up -d
+    ```
+
+### Method 2: Manual
+
 1. **Clone the repository:**
     ```bash
-    git clone git@github.com:Barmanji/CrazyBackend.git
-    cd CrazyBackend
+    git clone git@github.com:Barmanji/Youtube-and-Twitter-Compelete-Backend.git
+    cd Youtube-and-Twitter-Compelete-Backend
     ```
 
 2. **Install dependencies:**
@@ -93,7 +108,7 @@ This project is a backend system for a YouTube-like application that supports us
 
 3. **Set up environment variables:**
 
-    Create a `.env` file in the root of your project and add the following:
+    Create a `.env` file in the root of your project and add the following OR Change `.env.example` -> `.env`
     ```bash
     PORT=8000
     ORIGIN_KEY_CORS=*
@@ -136,6 +151,12 @@ This will start the server, and the application will be available on `http://loc
 | PATCH  | `/api/v1/user/cover-image`     | Change Cover Image of the Login user         | Yes       |
 | GET    | `/api/v1/user/c/:username`     | Give channel details like subcribers and all | Yes       |
 | GET    | `/api/v1/user/history`         | Give watchHistory of login user              | Yes       |
+
+### dashboard
+| Method | Endpoint                          | Description                       | Protected |
+|--------|-----------------------------------|-----------------------------------|-----------|
+| POST   |`/api/v1/user/seed`                | Seed the database with dummy users.    | No       |
+| GET    |`/api/v1/user/seed-credentials`    | Get the credentials of the seeded users.      | No       |
 
 ### Videos
 | Method | Endpoint                    | Description                       | Protected |

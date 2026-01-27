@@ -968,9 +968,9 @@
     "/api/v1/user/seed": {
       "post": {
         "tags": [
-          "User"
+          "Seed"
         ],
-        "summary": "Seed",
+        "summary": "Seed Users",
         "description": "Seed the database with dummy users.",
         "responses": {
           "200": {
@@ -982,7 +982,7 @@
     "/api/v1/user/seed-credentials": {
       "get": {
         "tags": [
-          "User"
+          "Seed"
         ],
         "summary": "Get generated credentials",
         "description": "Get the credentials of the seeded users.",
