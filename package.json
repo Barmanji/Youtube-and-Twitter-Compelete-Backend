@@ -32,6 +32,7 @@
         "@types/multer": "^1.4.13"
     },
     "scripts": {
+        "start": "node --experimental-json-modules src/index",
         "swagger": "node ./swagger.js",
         "dev": "nodemon -r dotenv/config --experimental-json-modules src/index"
     },

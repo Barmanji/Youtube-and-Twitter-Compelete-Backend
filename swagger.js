@@ -4,7 +4,7 @@ const doc = {
   info: {
     version: '1.2.0',            // by default: '1.0.0'
     title: 'Youtube_Twitter_Backend',              // by default: 'REST API'
-    description: 'API For Backend of Youtube and Twitter.'         // by default: ''
+    description: 'API For Backend of Youtube and Twitter. [Model Link](https://app.eraser.io/workspace/98py9WjlhcdPWbZBvwGu)'         // by default: ''
   },
     host: 'localhost:8000',                 // by default: 'localhost:3000'
   basePath: '',             // by default: '/'
